@@ -1,0 +1,14 @@
+all: build
+
+tag ?= latest
+
+tagged_image = go-prometheus-tgbot:$(tag)
+latest_image = go-prometheus-tgbot:latest
+
+build:
+	CGO_ENABLED=0 GOOS=linux go build -a -o tgbot.build github.com/neuron-digital/go-prometheus-tgbot/cmd/tgbot && docker build -t $(tagged_image) . && rm tgbot.build
+
+push:
+	docker tag $(tagged_image) $(latest_image)
+	docker push $(tagged_image)
+	docker push $(latest_image)

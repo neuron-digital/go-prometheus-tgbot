@@ -1,0 +1,1 @@
+{{if eq .Status "firing"}}{{$severity := label .Labels "severity"}}{{if eq $severity "warning"}}⚠{{else}}🔥{{end}}{{else if eq .Status "resolved"}}👌{{end}}{{label .Annotations "description"}}
